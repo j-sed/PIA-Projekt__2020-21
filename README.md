@@ -6,10 +6,11 @@ Kod na vypocet rovnic melke vody v 1D.
 ### Třídy
 * Sit
 * * Nacteni site
+* * Advance: nacteni tvaru dna
 * Mat.Model
-* * napocitani velicin
+* * napocitani velicin - Euler
 * Vystup
-* * Vytvoteni txt souboru s vysledky
+* * Vypsani txt souboru s vysledky
 ## Rozvržení práce
 * 
 * 
