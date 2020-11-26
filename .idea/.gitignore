@@ -8,3 +8,4 @@
 /httpRequests/
 *CMakeLists.txt
 misc.xml
+../cmake-build-debug
