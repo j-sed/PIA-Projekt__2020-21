@@ -2,11 +2,11 @@
 #include <fstream>
 #include <vector>
 #include "sit.hpp"
-#include "data.hpp"
+#include "resic.h"
 
 using namespace std;
 
-void ulozVysledky(sit &g){
+void ulozVysledky(sit &msh){
 	ofstream vystup;
 	
 	vystup.open("Vysledky.txt");
@@ -14,8 +14,8 @@ void ulozVysledky(sit &g){
 	vystup<< "# x " << endl;
 	vystup<< "-------------------------------------------" << endl;
 	
-	for(int i=0; i < g.n; i++){
-		vystup<< g.x[i] << endl;		
+	for(int i=0; i < msh.n; i++){
+		vystup<< msh.x[i] << endl;
  	}
  	
  	vystup.close(); 	
@@ -23,15 +23,15 @@ void ulozVysledky(sit &g){
 
 
 
-void ulozVysledky(sit &g, vector<data> &w){
+void ulozVysledky(sit &msh, vector<resic> &w){
 	ofstream vystup;
 	vystup.open("Vysledky.txt");
 	
 	vystup<< "# x \t h \t u " << endl;
 	vystup<< "-------------------------------------------" << endl;
 	
-	for(int i=0; i < g.n; i++){
-		vystup<< g.x[i] << "\t" << w[i].h << "\t" << w[i].u() << endl;		
+	for(int i=0; i < msh.n; i++){
+		vystup<< msh.x[i] << "\t" << w[i].h << "\t" << w[i].hu/w[i].h << endl;
  	}
  	
  	vystup.close(); 	

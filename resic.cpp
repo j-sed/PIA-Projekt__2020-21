@@ -4,12 +4,10 @@
 
 #include "resic.h"
 
-vector<double> resic::a() {
+array<double, 2> resic::a() {
     double u = hu/h;
     double a = sqrt(g*h);
-    vector<double> vect;
-    vect[0] = u-a;
-    vect[1] = u+a;
+    array<double, 2> vect{u-a,u+a};
     return vect;
 }
 
@@ -69,4 +67,9 @@ resic operator*(resic const&_vect,double const&a) {
     temp.h =  a       * _vect.h;
     temp.hu = a       * _vect.hu;
     return temp;
+}
+
+double resic::sigma(resic &w) {
+    array<double, 2> eig = w.a();
+    return max(abs(eig[0]),abs(eig[1]));
 }

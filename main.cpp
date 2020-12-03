@@ -6,61 +6,70 @@ using namespace std;
 
 int main(int argc, char** argv) {
 	
-	sit g(1.0, 2.0, 1.3, 200);
+	sit msh(0.0, 1.0, 0.5, 200);
 		
-	vector<data> w, wNew; // vektor pro nezname
-	w.resize(g.n);
-	wNew.resize(g.n);
-	
+	//vector<data> w, wNew; // vektor pro nezname
+	//w.resize(msh.n);
+    //wNew.resize(msh.n);
+    vector<resic> v, vNew; // vektor pro nezname
+    v.resize(msh.n);
+    vNew.resize(msh.n);
 	//pocatecni podminka
 	
 	double p_pom;
 	
-	for(int i = 0; i < g.n; i++){
-		if(g.x[i] < g.prepBod){
+	for(int i = 0; i < msh.n; i++){
+		if(msh.x[i] < msh.prepBod){
 			p_pom = 1.0;
-			w[i].h = 1.0;
-			w[i].hU = 0.0;
+			v[i].h = 1.0;
+			v[i].hu = 0.001;
 			
 		}else{
 			p_pom = 0.1;
-			w[i].h = 0.01;
-			w[i].hU = 0.0;
+			v[i].h = 0.01;
+			v[i].hu = 0.001;
 			
 		}
 	}
 	
-	double cas = 0.0, konecnyCas = 0.5, dt, eps = 0.93;
+	double cas = 0.0, konecnyCas = 150, dt, eps = 0.93;
 	
 	while(cas < konecnyCas){
 		
 		//odhad casoveho kroku
 		
-		dt = 0.0001;
-		
+		dt = 1e16;
+        for (int i = 0; i < msh.n-1; ++i) {
+            dt = min(dt, 0.8*msh.h/v[i].sigma(v[i]));
+        }
+        cout << dt << endl;
 		//aktulni cas vypoctu
-		
-		cas += dt;
+
+		cas += 1;
 		
 		//Neumannovy okrajove podminky
-		
-		wNew[0] = w[1];		//levy okrajovy bod
-		wNew[g.n-1] = w[g.n-2]; // pravy okrajovy bod
-		
+
+		//vNew[0] = v[1];		//levy okrajovy bod
+		//vNew[msh.n-1] = v[msh.n-2]; // pravy okrajovy bod
+		v[0].F() = v[0].HLL(v[1],v[1]);
+		v[msh.n-1].F() = v[msh.n-1].HLL(v[msh.n-1],v[msh.n-1]);
 		//Projedeme vsechny VNITRNI body site a vypocitame hodnoty v nove casove vrstve pomoci Laxova Fredrichsova schematu
-		
-		for(int i = 1; i < g.n-1; i++){
-			wNew[i] = w[i] - (w[i+1].F() - w[i-1].F() ) * (dt / (2.0 * g.h ))+ 0.5 * eps * (w[i+1] - 2.0 * w[i] + w[i-1] );
+
+		for(int i = 0; i < msh.n-2; i++){
+			v[i+1].F() = v[i+1].HLL(v[i],v[i+1]);
 		}
-		
+
 		//prekopirovani nove nactenych hodnot do stareho scheatu
-		for(int i = 0; i < g.n; i++){
-			w[i] = wNew[i];				
+		for(int i = 0; i < msh.n-2; i++){
+            vNew[i] = v[i] - dt/msh.h*(v[i+1].F()-v[i].F());
 		}
+        for (int i = 0; i < msh.n-2; ++i) {
+            v[i] = vNew[i];
+        }
 						
 	}
 	
-	ulozVysledky(g, w);
+	ulozVysledky(msh, v);
 	
 	return 0;
 }

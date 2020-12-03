@@ -8,6 +8,7 @@
 #endif //PIA_PROJEKT__2020_21_RESIC_H
 #include <vector>
 #include <cmath>
+#include <array>
 #define g 9.81
 
 using namespace std;
@@ -17,7 +18,9 @@ public:
     /* Zakladni promenne tridy resic*/
     double h, hu;
     /* Funkce a vraci vektor s hodnotami u-a a u+a.*/
-    vector<double> a();
+    array<double, 2> a();
+
+    double sigma(resic &w);
     /* F napocitava Flux - bilance bybnosti*/
     resic F();
     /* Harten Lax-van Leer schema (HLL) schema aproximace*/
