@@ -28,12 +28,12 @@ resic resic::HLL(resic &wl, resic &wr) {
     eigr.assign(wr.a().begin(),wr.a().end());
     double sl = min(eigl[0],eigr[0]);
     double sr = min(eigl[1],eigr[1]);
-    double diffS = 1.0/(sl-sr);
+    double diffS = 1.0/(sr-sl);
     if (0.0 <= sl) {
         return Fl;
     }
     else if (0.0 < sr){
-        return (sr*Fl - sr*Fr + sl*sl*(wr-wl))*diffS;
+        return (sr*Fl - sl*Fr + sl*sr*(wr-wl))*diffS;
     }
     else {
         return Fr;
@@ -73,3 +73,4 @@ double resic::sigma(resic &w) {
     array<double, 2> eig = w.a();
     return max(abs(eig[0]),abs(eig[1]));
 }
+

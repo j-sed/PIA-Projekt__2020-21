@@ -9,7 +9,7 @@
 #include <vector>
 #include <cmath>
 #include <array>
-#define g 9.81
+#define g 10
 
 using namespace std;
 
@@ -25,7 +25,6 @@ public:
     resic F();
     /* Harten Lax-van Leer schema (HLL) schema aproximace*/
     resic HLL(resic &wl, resic &wr);
-
 /* Operator overloading declaration*/
     resic operator+(const resic& _vect);
     resic operator-(const resic& _vect);

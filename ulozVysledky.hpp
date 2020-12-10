@@ -25,10 +25,10 @@ void ulozVysledky(sit &msh){
 
 void ulozVysledky(sit &msh, vector<resic> &w){
 	ofstream vystup;
-	vystup.open("Vysledky.txt");
+	vystup.open("Vysledky.txt",std::ios::app);
 	
-	vystup<< "# x \t h \t u " << endl;
-	vystup<< "-------------------------------------------" << endl;
+	//vystup<< "# x \t h \t u " << endl;
+	//vystup<< "-------------------------------------------" << endl;
 	
 	for(int i=0; i < msh.n; i++){
 		vystup<< msh.x[i] << "\t" << w[i].h << "\t" << w[i].hu/w[i].h << endl;
