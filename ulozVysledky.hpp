@@ -7,15 +7,17 @@
 using namespace std;
 
 void ulozVysledky(sit &msh){
+
 	ofstream vystup;
 	
 	vystup.open("Vysledky.txt");
 	
 	vystup<< "# x " << endl;
 	vystup<< "-------------------------------------------" << endl;
-	
+
 	for(int i=0; i < msh.n; i++){
 		vystup<< msh.x[i] << endl;
+
  	}
  	
  	vystup.close(); 	
