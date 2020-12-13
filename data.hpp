@@ -1,6 +1,6 @@
 #pragma once
 #define kappa 1.4
-#define g 9.81
+#define tiha 10
 #include <cmath>
 
 //trida data
